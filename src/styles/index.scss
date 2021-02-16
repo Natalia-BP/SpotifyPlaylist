@@ -1,13 +1,41 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
-/* 
+// Playbar
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
+.playBar {
+    background-color: rgb(30, 30, 48);
+    position: fixed;
+    bottom: 0;
+    right:0;
+    left:0;
+}
 
-*/
+.playBar .fa-play-circle, .playBar .fa-pause-circle {
+    margin-left: 0.9rem;
+    margin-right: 0.9rem;
+    font-size: 2.5rem;
+    transition: transform 0.5s;
+}
+
+.playBar .fas.fa-play-circle:hover,
+.playBar .fas.fa-pause-circle:hover {
+
+    transform: scale(1.2, 1.2);
+}
+
+// Icons
+
+.fas {
+    font-size: 1.5rem;
+    color: rgb(214, 214, 214);
+}
+
+
+.fas:hover {
+    color: white;
+}
+
+// Table
+.table {
+    margin-bottom: 56px;
+}
