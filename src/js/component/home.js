@@ -4,8 +4,6 @@ export function Home() {
 	//FUNCIONALIDAD ENTERA
 	//Fetching the array and storing it
 	const [playlist, setPlaylist] = useState([]);
-	const [currentSong, setCurrentSong] = useState(0);
-
 	useEffect(() => {
 		songList();
 	}, []);
@@ -16,6 +14,12 @@ export function Home() {
 			.then(data => setPlaylist(data));
 	};
 
+	//Index state
+	const [currentSong, setCurrentSong] = useState(0);
+
+	//Button state
+	const [playBtn, setBtn] = useState("play");
+
 	//UseRef to call on <audio/> from MusicPlayer
 	const audio = useRef();
 
@@ -24,22 +28,19 @@ export function Home() {
 		audio.current.pause();
 
 		audio.current.src =
-			(await "https://assets.breatheco.de/apis/sound/") + currentSong.url;
+			"https://assets.breatheco.de/apis/sound/" + currentSong.url;
 		await audio.current.play();
-		//.ended boolean tira false mientras da play, tira true cuando termina
 		const newId = currentSong.id + 1;
 
-		audio.current.ended == true ? setCurrentSong(playlist[newId - 1]) : "";
+		//.ended boolean tira false mientras da play, tira true cuando termina
+		(await audio.current.ended) == true
+			? setCurrentSong(playlist[newId])
+			: "";
 		console.log("Im the current song " + currentSong);
 		setBtn("pause");
 	}
 
-	function pauseSong() {
-		audio.current.pause();
-	}
-
 	//Button functionality
-	const [playBtn, setBtn] = useState("play");
 
 	function toggleBtn() {
 		playBtn == "play" ? setBtn("pause") : setBtn("play");
@@ -71,8 +72,7 @@ export function Home() {
 											});
 											playSong();
 										}}>
-										{/* <th scope="row">{song.id}</th> */}
-										<th scope="row">{index}</th>
+										<th scope="row">{index + 1}</th>
 										<td>
 											{song.name}
 											<audio ref={audio} />
@@ -129,8 +129,8 @@ export function Home() {
 					</div>
 				</div>
 			</div>
-			<div style={{ color: "red" }}>{JSON.stringify(currentSong)}</div>
-			<div style={{ color: "blue" }}>{JSON.stringify(playlist)}</div>
+			{/* <div style={{ color: "red" }}>{JSON.stringify(currentSong)}</div>
+			<div style={{ color: "blue" }}>{JSON.stringify(playlist)}</div> */}
 		</>
 	);
 }
